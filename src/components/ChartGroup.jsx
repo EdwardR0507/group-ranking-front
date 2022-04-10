@@ -49,7 +49,6 @@ const randomColor = () => {
 const ChartGroup = () => {
   const { socket } = useContext(SocketContext);
   const { groups } = useGroups(socket);
-
   const data = {
     labels: groups.map((group) => group.name),
     datasets: [
@@ -61,6 +60,15 @@ const ChartGroup = () => {
     ],
   };
 
-  return <Bar options={options} data={data} />;
+  return groups.length > 0 ? (
+    <Bar data={data} options={options} />
+  ) : (
+    <p
+      className="text-center 
+    text-danger"
+    >
+      No groups yet
+    </p>
+  );
 };
 export default ChartGroup;

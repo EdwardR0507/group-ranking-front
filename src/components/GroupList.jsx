@@ -66,7 +66,7 @@ const GroupList = () => {
   return (
     <>
       <h2>Top Groups</h2>
-      <table className="table table-stripped">
+      <table className="table table-stripped text-center">
         <thead>
           <tr>
             <th></th>
