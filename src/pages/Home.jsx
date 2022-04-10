@@ -1,35 +1,11 @@
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
-
+import { useContext } from "react";
 import AddGroup from "../components/AddGroup";
+import ChartGroup from "../components/ChartGroup";
 import GroupList from "../components/GroupList";
-
-const connectSocketServer = () => {
-  const socket = io("http://localhost:4000", {
-    transports: ["websocket"],
-  });
-  return socket;
-};
+import { SocketContext } from "../context/SocketContext";
 
 const Home = () => {
-  const [socket] = useState(connectSocketServer);
-  const [online, setOnline] = useState(false);
-
-  useEffect(() => {
-    setOnline(socket.connected);
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("connect", () => {
-      setOnline(true);
-    });
-  }, [socket]);
-
-  useEffect(() => {
-    socket.on("disconnect", () => {
-      setOnline(false);
-    });
-  }, [socket]);
+  const { online } = useContext(SocketContext);
 
   return (
     <div className="container">
@@ -45,6 +21,11 @@ const Home = () => {
       </div>
       <h1>Ranking Groups</h1>
       <hr />
+      <div className="row">
+        <div className="col">
+          <ChartGroup />
+        </div>
+      </div>
       <div className="row">
         <div className="col-8">
           <GroupList />
